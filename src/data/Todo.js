@@ -1,29 +1,11 @@
 import { nanoid } from 'nanoid';
-import NotFoundError from '../exceptions/NotFoundError';
-import TodosValidator from '../validator/todos';
 
-let list = [
-  // {
-  //   id: nanoid(),
-  //   title: 'Membuat Komponen',
-  //   completed: true,
-  // },
-  // {
-  //   id: nanoid(),
-  //   title: 'Unit Testing',
-  //   completed: false,
-  // },
-  // {
-  //   id: nanoid(),
-  //   title: 'Setup Development Environment',
-  //   completed: true,
-  // },
-  // {
-  //   id: nanoid(),
-  //   title: 'Deploy ke server',
-  //   completed: false,
-  // },
-];
+// Array Service
+// import TodoService from './services/array/TodoService';
+// Local Storange Service
+import TodoService from './services/localStorage/TodoService';
+
+import TodosValidator from '../validator/todos';
 
 const Todo = {
   addTodo(title) {
@@ -35,31 +17,23 @@ const Todo = {
 
     TodosValidator.validateTodoPayload(todo);
 
-    list.push(todo);
+    TodoService.addTodo(todo);
   },
 
   getTodoList() {
-    return list;
+    return TodoService.getTodoList();
   },
 
   getTodo(id) {
-    const result = list.find((todo) => (todo.id === id));
-    if (!result) throw new NotFoundError('Item not Found.');
-    return result;
+    return TodoService.getTodo(id);
   },
 
   editTodo(id, payload) {
-    const index = list.findIndex((todo) => (todo.id === id));
-    if (index < 0) throw new NotFoundError('Item not Found.');
-    const newTodo = {
-      ...payload,
-      id,
-    };
-    list[index] = newTodo;
+    TodoService.editTodo(id, payload);
   },
 
   deleteTodo(id) {
-    list = list.filter((todo) => (todo.id !== id));
+    TodoService.deleteTodo(id);
   },
 };
 

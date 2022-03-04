@@ -1,14 +1,26 @@
-import Container from '@mui/material/Container';
-import TodoAppBar from './global/components/AppBar';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import Layout from './global/components/Layout';
+
 import Todo from './pages/Todo';
+import AboutApp from './pages/about/about-app';
+import AboutAuthor from './pages/about/about-author';
+import NotFound from './pages/notFound';
 
 const App = () => (
   <div>
-    <TodoAppBar />
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Todo />} />
 
-    <Container maxWidth="xl">
-      <Todo />
-    </Container>
+        <Route path="about">
+          <Route index element={<Navigate to="about-app" />} />
+          <Route path="about-app" element={<AboutApp />} />
+          <Route path="about-author" element={<AboutAuthor />} />
+        </Route>
+
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </Routes>
   </div>
 );
 

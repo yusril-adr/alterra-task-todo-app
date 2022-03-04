@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-gray-300;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.flex-col-center {
+  display: flex;
+}
+
+
+/* sm */
+@media (min-width: 600px) {
+  
+}
+
+/* md */
+@media (min-width: 900px) {
+  
+}
+
+/* lg */
+@media (min-width: 1200px) {
+  .lg\:max-w-240px {
+    max-width: 240px;
+  }
+}
+
+/* xl */
+@media (min-width: 1536px) {
+  
+}

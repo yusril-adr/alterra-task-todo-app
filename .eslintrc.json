@@ -20,6 +20,7 @@
     ],
     "rules": {
         "linebreak-style": "off",
+        "no-useless-return": "off",
         "react/jsx-filename-extension": "off",
         "react/react-in-jsx-scope": "off",
         "react/function-component-definition": "off",

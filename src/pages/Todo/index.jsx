@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Alert from '../../global/components/Alert';
-import TodoList from './components/TodoList';
+import TodoList from './components/ToDoList';
 import Todo from '../../data/Todo';
 import AddTodo from './components/AddTodo';
 import ClientError from '../../exceptions/ClientError';

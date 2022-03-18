@@ -1,4 +1,4 @@
-import TodoItem from './TodoItem';
+import TodoItem from './ToDoItem';
 
 const TodoList = ({ list = [], updateList }) => (
   <>

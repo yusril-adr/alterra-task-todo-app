@@ -1,5 +1,5 @@
 import Todo from '../../data/Todo';
-import ToDoList from './components/ToDoList';
+import ToDoList from './components/TodoList';
 
 const Todos = () => {
   const list = Todo.getList();

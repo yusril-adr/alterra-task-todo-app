@@ -1,9 +1,13 @@
 import { Link } from 'react-router-dom';
+
+// Package Components
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
+
+// Files
 import illustrationFile from '../../img/404.png';
 
 const NotFound = () => (

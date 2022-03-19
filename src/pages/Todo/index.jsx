@@ -1,10 +1,20 @@
 import { useState, useEffect } from 'react';
+
+// Global Components
 import Alert from '../../global/components/Alert';
-import TodoList from './components/ToDoList';
-import Todo from '../../data/Todo';
+
+// Page Components
+import TodoList from './components/TodoList';
 import AddTodo from './components/AddTodo';
-import ClientError from '../../exceptions/ClientError';
+
+// Configuration
 import CONFIG from '../../global/CONFIG';
+
+// Data Handler
+import Todo from '../../data/Todo';
+
+// Exceptions
+import ClientError from '../../exceptions/ClientError';
 
 const Todos = () => {
   const [list, setList] = useState([]);

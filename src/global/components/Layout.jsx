@@ -1,10 +1,14 @@
 import {
   Outlet, useLocation,
 } from 'react-router-dom';
+
+// Package Components
 import Container from '@mui/material/Container';
 import HomeIcon from '@mui/icons-material/Home';
 import InfoIcon from '@mui/icons-material/Info';
 import FaceIcon from '@mui/icons-material/Face';
+
+// Global Components
 import TodoAppBar from './AppBar';
 
 const Layout = () => {

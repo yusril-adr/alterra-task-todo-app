@@ -1,4 +1,6 @@
 import { useState } from 'react';
+
+// Package Components
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import Container from '@mui/material/Container';
@@ -10,9 +12,15 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Alert from '@mui/material/Alert';
-import ClientError from '../../../exceptions/ClientError';
+
+// Configuration
 import CONFIG from '../../../global/CONFIG';
+
+// Data Handler
 import Todo from '../../../data/Todo';
+
+// Exceptions
+import ClientError from '../../../exceptions/ClientError';
 
 const AddTodo = ({ updateList }) => {
   const [open, setOpen] = useState(false);

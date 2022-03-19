@@ -1,4 +1,6 @@
 import { useState } from 'react';
+
+// Package Components
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,6 +14,8 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+
+// Global Components
 import NavLink from './NavLink';
 
 const TodoAppBar = ({ pages = [] }) => {

@@ -1,14 +1,24 @@
 import { useState } from 'react';
+
+// Package Components
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Checkbox from '@mui/material/Checkbox';
 import Tooltip from '@mui/material/Tooltip';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
+
+// Global Components
 import Alert from '../../../global/components/Alert';
-import ClientError from '../../../exceptions/ClientError';
+
+// Configuration
 import CONFIG from '../../../global/CONFIG';
+
+// Data Handler
 import Todo from '../../../data/Todo';
+
+// Exceptions
+import ClientError from '../../../exceptions/ClientError';
 
 const TodoItem = ({ item: { id, title, completed }, updateList }) => {
   const [errorMessage, setErrorMessage] = useState(null);

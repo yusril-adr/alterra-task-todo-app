@@ -2,7 +2,7 @@
 import TodoAppBar from './global/components/AppBar';
 
 // Pages
-import Todo from './pages/Todo';
+import Todo from './pages/todo';
 
 const App = () => (
   <>

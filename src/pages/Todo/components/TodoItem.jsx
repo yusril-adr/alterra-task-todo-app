@@ -56,7 +56,7 @@ class TodoItem extends React.Component {
   toggleCompleteStatus() {
     try {
       Todo.editTodo(
-        this.props.items.id,
+        this.props.item.id,
         {
           title: this.props.item.title,
           completed: !this.props.item.completed,

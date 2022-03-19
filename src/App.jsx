@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './global/components/Layout';
 
-import Todo from './pages/Todo';
+import Todo from './pages/todo';
 import AboutApp from './pages/about/about-app';
 import AboutAuthor from './pages/about/about-author';
 import NotFound from './pages/notFound';

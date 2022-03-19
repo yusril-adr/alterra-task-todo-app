@@ -1,3 +1,6 @@
+import React from 'react';
+
+// Package Components
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -5,31 +8,41 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-const Alert = ({ title, message, setMessage }) => {
-  const handleCloseDialog = () => { setMessage(null); };
+class Alert extends React.Component {
+  constructor(props) {
+    super(props);
 
-  return (
-    <Dialog
-      open={Boolean(message)}
-      onClose={handleCloseDialog}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
-    >
-      <DialogTitle id="alert-dialog-title">
-        {title}
-      </DialogTitle>
-      <DialogContent>
-        <DialogContentText id="alert-dialog-description">
-          {message}
-        </DialogContentText>
-      </DialogContent>
-      <DialogActions sx={{ display: 'flex', justifyContent: 'center' }}>
-        <Button onClick={handleCloseDialog}>
-          Ok
-        </Button>
-      </DialogActions>
-    </Dialog>
-  );
-};
+    this.handleCloseDialog = this.handleCloseDialog.bind(this);
+  }
+
+  handleCloseDialog() {
+    this.props.setMessage(null);
+  }
+
+  render() {
+    return (
+      <Dialog
+        open={Boolean(this.props.message)}
+        onClose={this.handleCloseDialog}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {this.props.title}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            {this.props.message}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions sx={{ display: 'flex', justifyContent: 'center' }}>
+          <Button onClick={this.handleCloseDialog}>
+            Ok
+          </Button>
+        </DialogActions>
+      </Dialog>
+    );
+  }
+}
 
 export default Alert;

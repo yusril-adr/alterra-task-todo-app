@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import React from 'react';
+
+// Package Components
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import Container from '@mui/material/Container';
@@ -10,87 +12,128 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Alert from '@mui/material/Alert';
-import ClientError from '../../../exceptions/ClientError';
+
+// Configuration
 import CONFIG from '../../../global/CONFIG';
+
+// Data Handler
 import Todo from '../../../data/Todo';
 
-const AddTodo = ({ updateList }) => {
-  const [open, setOpen] = useState(false);
-  const [alertMessage, setAlertMessage] = useState(null);
-  const [title, setTitle] = useState('');
+// Exceptions
+import ClientError from '../../../exceptions/ClientError';
 
-  const toggleDialog = () => {
-    setOpen(!open);
-  };
+class AddTodo extends React.Component {
+  constructor(props) {
+    super(props);
 
-  const submitDialog = () => {
+    this.state = {
+      open: false,
+      alertMessage: null,
+      title: '',
+    };
+
+    this.toggleDialog = this.toggleDialog.bind(this);
+    this.submitDialog = this.submitDialog.bind(this);
+    this.setAlertMessage = this.setAlertMessage.bind(this);
+  }
+
+  setAlertMessage(message) {
+    this.setState((prevState) => ({
+      ...prevState,
+      alertMessage: message,
+    }));
+  }
+
+  toggleDialog() {
+    this.setState((prevState) => ({
+      ...prevState,
+      open: !prevState.open,
+    }));
+  }
+
+  submitDialog() {
     try {
-      Todo.addTodo(title);
+      Todo.addTodo(this.state.title);
 
-      setTitle('');
-      setAlertMessage(null);
-      toggleDialog();
-      updateList();
+      this.setState((prevState) => ({
+        ...prevState,
+        title: '',
+        alertMessage: null,
+      }));
+
+      this.toggleDialog();
+      this.props.updateList();
     } catch (error) {
       if (error instanceof ClientError) {
-        setAlertMessage(error.message);
+        this.setAlertMessage(error.message);
         return;
       }
 
       // eslint-disable-next-line no-console
       console.log(error);
-      setAlertMessage(CONFIG.DEFAULT_ERROR_MESSAGE);
+      this.setAlertMessage(CONFIG.DEFAULT_ERROR_MESSAGE);
     }
-  };
+  }
 
-  return (
-    <div className="absolute right-4 bottom-4">
-      <Container
-        maxWidth="xl"
-        sx={{
-          display: 'flex', justifyContent: 'end', alignItems: 'end', height: '100%',
-        }}
-      >
-        <Fab color="warning" aria-label="add" onClick={toggleDialog}>
-          <AddIcon />
-        </Fab>
-      </Container>
+  render() {
+    return (
+      <div className="absolute right-4 bottom-4">
+        <Container
+          maxWidth="xl"
+          sx={{
+            display: 'flex', justifyContent: 'end', alignItems: 'end', height: '100%',
+          }}
+        >
+          <Fab color="warning" aria-label="add" onClick={this.toggleDialog}>
+            <AddIcon />
+          </Fab>
+        </Container>
 
-      <Dialog open={open} onClose={toggleDialog}>
-        <DialogTitle>New Item</DialogTitle>
-        <DialogContent>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="title"
-            label="Title"
-            type="text"
-            fullWidth
-            variant="standard"
-            value={title}
-            onChange={(event) => setTitle(event.target.value)}
-          />
-          {alertMessage && (
-            <DialogContentText>
-              <Alert severity="error">{alertMessage}</Alert>
-            </DialogContentText>
-          )}
-        </DialogContent>
-        <DialogActions>
-          <Button
-            onClick={() => {
-              setTitle('');
-              setAlertMessage(null);
-              toggleDialog();
-            }}
-          >
-            Cancel
-          </Button>
-          <Button onClick={submitDialog}>Add</Button>
-        </DialogActions>
-      </Dialog>
-    </div>
-  );
-};
+        <Dialog open={this.state.open} onClose={this.toggleDialog}>
+          <DialogTitle>New Item</DialogTitle>
+          <DialogContent>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="title"
+              label="Title"
+              type="text"
+              fullWidth
+              variant="standard"
+              value={this.state.title}
+              onChange={(event) => {
+                this.setState((prevState) => ({
+                  ...prevState,
+                  title: event.target.value,
+                }));
+              }}
+            />
+            {this.state.alertMessage && (
+              <DialogContentText>
+                <Alert severity="error">{this.state.alertMessage}</Alert>
+              </DialogContentText>
+            )}
+          </DialogContent>
+          <DialogActions>
+            <Button
+              onClick={() => {
+                this.setState((prevState) => ({
+                  ...prevState,
+                  title: '',
+                  alertMessage: null,
+                }));
+
+                this.toggleDialog();
+              }}
+            >
+              Cancel
+            </Button>
+            <Button onClick={this.submitDialog}>Add</Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+    );
+  }
+}
 
 export default AddTodo;

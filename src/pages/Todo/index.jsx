@@ -1,51 +1,81 @@
-import { useState, useEffect } from 'react';
-import Alert from '../../global/components/Alert';
-import TodoList from './components/ToDoList';
-import Todo from '../../data/Todo';
-import AddTodo from './components/AddTodo';
-import ClientError from '../../exceptions/ClientError';
+import React from 'react';
+// Configuration
 import CONFIG from '../../global/CONFIG';
 
-const Todos = () => {
-  const [list, setList] = useState([]);
-  const [errorMessage, setErrorMessage] = useState(null);
+// Global Component
+import Alert from '../../global/components/Alert';
 
-  const updateList = () => {
-    setList([...Todo.getTodoList()]);
-  };
+// Page Component
+import TodoList from './components/TodoList';
+import AddTodo from './components/AddTodo';
 
-  useEffect(() => {
+// Data Handler
+import Todo from '../../data/Todo';
+
+// Exceptions
+import ClientError from '../../exceptions/ClientError';
+
+class Todos extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      list: [],
+      errorMessage: null,
+    };
+
+    this.updateList = this.updateList.bind(this);
+    this.setErrorMessage = this.setErrorMessage.bind(this);
+  }
+
+  componentDidMount() {
     try {
-      updateList();
+      this.updateList();
     } catch (error) {
       if (error instanceof ClientError) {
-        setErrorMessage(error.message);
+        this.setErrorMessage(error.message);
         return;
       }
 
       // eslint-disable-next-line no-console
       console.log(error);
-      setErrorMessage(CONFIG.DEFAULT_ERROR_MESSAGE);
+      this.setErrorMessage(CONFIG.DEFAULT_ERROR_MESSAGE);
     }
-  }, []);
+  }
 
-  return (
-    <div className="flex flex-col items-center">
-      <h1 className="text-4xl font-bold mt-6 mb-8">To Do List</h1>
+  setErrorMessage(message) {
+    this.setState((prevState) => ({
+      ...prevState,
+      errorMessage: message,
+    }));
+  }
 
-      <TodoList list={list} updateList={updateList} />
+  updateList() {
+    this.setState((prevState) => ({
+      ...prevState,
+      list: Todo.getTodoList(),
+    }));
+  }
 
-      <AddTodo
-        updateList={updateList}
-      />
+  render() {
+    return (
+      <div className="flex flex-col items-center px-4">
+        <h1 className="text-4xl font-bold mt-6 mb-8">To Do List</h1>
 
-      <Alert
-        title={CONFIG.DEFAULT_ERROR_TITLE}
-        message={errorMessage}
-        setMessage={setErrorMessage}
-      />
-    </div>
-  );
-};
+        <TodoList list={this.state.list} updateList={this.updateList} />
+
+        <AddTodo
+          updateList={this.updateList}
+        />
+
+        <Alert
+          title={CONFIG.DEFAULT_ERROR_TITLE}
+          message={this.state.errorMessage}
+          setMessage={this.setErrorMessage}
+        />
+      </div>
+    );
+  }
+}
 
 export default Todos;

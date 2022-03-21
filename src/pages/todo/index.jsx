@@ -22,7 +22,7 @@ import ClientError from '../../exceptions/ClientError';
 
 const Todos = () => {
   const [errorMessage, setErrorMessage] = useState(null);
-  const list = useSelector((state) => state.todo);
+  const list = useSelector((state) => state.todo.value);
   const dispatch = useDispatch();
 
   const updateList = () => {

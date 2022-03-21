@@ -1,30 +1,32 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = [];
+const initialState = {
+  value: [],
+};
 
 export const todoSlice = createSlice({
   name: 'todo',
   initialState,
   reducers: {
     addTodo: (state, { payload: todo }) => {
-      state.push(todo);
+      state.value.push(todo);
     },
     editTodo: (state, { payload: { id, data } }) => {
-      const index = state.findIndex((todo) => (todo.id === id));
+      const index = state.value.findIndex((todo) => (todo.id === id));
 
       const newTodo = {
         ...data,
         id,
       };
 
-      state[index] = newTodo;
+      state.value[index] = newTodo;
     },
     setTodoList: (state, { payload: list }) => {
-      state = list;
+      state.value = list;
     },
     deleteTodo: (state, { payload: id }) => {
-      state = state.filter((todo) => (todo.id !== id));
+      state.value = state.value.filter((todo) => (todo.id !== id));
     },
   },
 });

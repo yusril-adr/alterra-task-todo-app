@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 // Package Components
 import Fab from '@mui/material/Fab';
@@ -19,13 +20,17 @@ import CONFIG from '../../../global/CONFIG';
 // Data Handler
 import Todo from '../../../data/Todo';
 
+// Actions
+import { addTodo } from '../../../data/services/redux/slices/TodoSlice';
+
 // Exceptions
 import ClientError from '../../../exceptions/ClientError';
 
-const AddTodo = ({ updateList }) => {
+const AddTodo = () => {
   const [open, setOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState(null);
   const [title, setTitle] = useState('');
+  const dispatch = useDispatch();
 
   const toggleDialog = () => {
     setOpen(!open);
@@ -33,12 +38,12 @@ const AddTodo = ({ updateList }) => {
 
   const submitDialog = () => {
     try {
-      Todo.addTodo(title);
+      const todo = Todo.addTodo(title);
+      dispatch(addTodo(todo));
 
       setTitle('');
       setAlertMessage(null);
       toggleDialog();
-      updateList();
     } catch (error) {
       if (error instanceof ClientError) {
         setAlertMessage(error.message);

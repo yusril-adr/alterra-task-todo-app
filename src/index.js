@@ -6,14 +6,25 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import './index.css';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react'
+
+// Store
+import { store, persistor } from './data/services/redux/store';
+
+// Root Component
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </PersistGate>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root'),
 );

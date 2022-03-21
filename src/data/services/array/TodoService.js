@@ -19,12 +19,16 @@ const TodoService = {
 
   editTodo(id, payload) {
     const index = list.findIndex((todo) => (todo.id === id));
+
     if (index < 0) throw new NotFoundError('Item not Found.');
+
     const newTodo = {
       ...payload,
       id,
     };
     list[index] = newTodo;
+
+    return newTodo;
   },
 
   deleteTodo(id) {

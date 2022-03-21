@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 // Package Components
 import Card from '@mui/material/Card';
@@ -17,16 +18,20 @@ import CONFIG from '../../../global/CONFIG';
 // Data Handler
 import Todo from '../../../data/Todo';
 
+// Actions
+import { editTodo, deleteTodo } from '../../../data/services/redux/slices/TodoSlice';
+
 // Exceptions
 import ClientError from '../../../exceptions/ClientError';
 
-const TodoItem = ({ item: { id, title, completed }, updateList }) => {
+const TodoItem = ({ item: { id, title, completed } }) => {
   const [errorMessage, setErrorMessage] = useState(null);
+  const dispatch = useDispatch();
 
   const toggleCompleteStatus = () => {
     try {
       Todo.editTodo(id, { title, completed: !completed });
-      updateList();
+      dispatch(editTodo({ id, data: { title, completed: !completed } }));
     } catch (error) {
       if (error instanceof ClientError) {
         setErrorMessage(error.message);
@@ -42,7 +47,7 @@ const TodoItem = ({ item: { id, title, completed }, updateList }) => {
   const deleteHandler = () => {
     try {
       Todo.deleteTodo(id);
-      updateList();
+      dispatch(deleteTodo(id));
     } catch (error) {
       if (error instanceof ClientError) {
         setErrorMessage(error.message);

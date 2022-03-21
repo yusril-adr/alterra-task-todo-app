@@ -23,13 +23,18 @@ const TodoService = {
   editTodo(id, payload) {
     const list = this.getTodoList();
     const index = list.findIndex((todo) => (todo.id === id));
+
     if (index < 0) throw new NotFoundError('Item not Found.');
+
     const newTodo = {
       ...payload,
       id,
     };
     list[index] = newTodo;
+
     localStorage.setItem(CONFIG.STORAGE_KEY, JSON.stringify(list));
+
+    return newTodo;
   },
 
   deleteTodo(id) {

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 // Global Components
 import Alert from '../../global/components/Alert';
@@ -13,15 +14,20 @@ import CONFIG from '../../global/CONFIG';
 // Data Handler
 import Todo from '../../data/Todo';
 
+// Actions
+import { setTodoList } from '../../data/services/redux/slices/TodoSlice';
+
 // Exceptions
 import ClientError from '../../exceptions/ClientError';
 
 const Todos = () => {
-  const [list, setList] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
+  const list = useSelector((state) => state.todo);
+  const dispatch = useDispatch();
 
   const updateList = () => {
-    setList([...Todo.getTodoList()]);
+    const newList = Todo.getTodoList();
+    dispatch(setTodoList(newList));
   };
 
   useEffect(() => {
@@ -43,11 +49,12 @@ const Todos = () => {
     <div className="flex flex-col items-center">
       <h1 className="text-4xl font-bold mt-6 mb-8">To Do List</h1>
 
-      <TodoList list={list} updateList={updateList} />
-
-      <AddTodo
+      <TodoList
+        list={list}
         updateList={updateList}
       />
+
+      <AddTodo />
 
       <Alert
         title={CONFIG.DEFAULT_ERROR_TITLE}

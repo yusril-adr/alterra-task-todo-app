@@ -1,10 +1,8 @@
 import { nanoid } from 'nanoid';
 
-// Service
-import TodoService from './services/localStorage/TodoService';
+import TodoService from './TodoService';
 
-// Validator
-import TodosValidator from '../validator/todos';
+import TodosValidator from '../../../validator/todos';
 
 const Todo = {
   addTodo(title) {
@@ -17,8 +15,6 @@ const Todo = {
     TodosValidator.validateTodoPayload(todo);
 
     TodoService.addTodo(todo);
-
-    return todo;
   },
 
   getTodoList() {
@@ -30,9 +26,7 @@ const Todo = {
   },
 
   editTodo(id, payload) {
-    const todo = { id, ...payload };
-    TodosValidator.validateTodoPayload(todo);
-    return TodoService.editTodo(id, payload);
+    TodoService.editTodo(id, payload);
   },
 
   deleteTodo(id) {

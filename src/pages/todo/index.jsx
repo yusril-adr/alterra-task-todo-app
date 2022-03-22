@@ -11,9 +11,6 @@ import AddTodo from './components/AddTodo';
 // Configuration
 import CONFIG from '../../global/CONFIG';
 
-// Data Handler
-import Todo from '../../data/Todo';
-
 // Actions
 import { setTodoList } from '../../data/services/redux/slices/TodoSlice';
 
@@ -26,8 +23,7 @@ const Todos = () => {
   const dispatch = useDispatch();
 
   const updateList = () => {
-    const newList = Todo.getTodoList();
-    dispatch(setTodoList(newList));
+    dispatch(setTodoList());
   };
 
   useEffect(() => {

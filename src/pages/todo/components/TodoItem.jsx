@@ -15,9 +15,6 @@ import Alert from '../../../global/components/Alert';
 // Configuration
 import CONFIG from '../../../global/CONFIG';
 
-// Data Handler
-import Todo from '../../../data/Todo';
-
 // Actions
 import { editTodo, deleteTodo } from '../../../data/services/redux/slices/TodoSlice';
 
@@ -30,8 +27,7 @@ const TodoItem = ({ item: { id, title, completed } }) => {
 
   const toggleCompleteStatus = () => {
     try {
-      Todo.editTodo(id, { title, completed: !completed });
-      dispatch(editTodo({ id, data: { title, completed: !completed } }));
+      dispatch(editTodo({ id, title, completed: !completed }));
     } catch (error) {
       if (error instanceof ClientError) {
         setErrorMessage(error.message);
@@ -46,7 +42,6 @@ const TodoItem = ({ item: { id, title, completed } }) => {
 
   const deleteHandler = () => {
     try {
-      Todo.deleteTodo(id);
       dispatch(deleteTodo(id));
     } catch (error) {
       if (error instanceof ClientError) {

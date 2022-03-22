@@ -17,9 +17,6 @@ import Alert from '@mui/material/Alert';
 // Configuration
 import CONFIG from '../../../global/CONFIG';
 
-// Data Handler
-import Todo from '../../../data/Todo';
-
 // Actions
 import { addTodo } from '../../../data/services/redux/slices/TodoSlice';
 
@@ -38,8 +35,7 @@ const AddTodo = () => {
 
   const submitDialog = () => {
     try {
-      const todo = Todo.addTodo(title);
-      dispatch(addTodo(todo));
+      dispatch(addTodo(title));
 
       setTitle('');
       setAlertMessage(null);

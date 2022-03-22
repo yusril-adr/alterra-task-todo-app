@@ -1,10 +1,10 @@
 import { nanoid } from 'nanoid';
 
 // Service
-import TodoService from './services/localStorage/TodoService';
+import TodoService from '../services/localStorage/TodoService';
 
 // Validator
-import TodosValidator from '../validator/todos';
+import TodosValidator from '../../validator/todos';
 
 const Todo = {
   addTodo(title) {

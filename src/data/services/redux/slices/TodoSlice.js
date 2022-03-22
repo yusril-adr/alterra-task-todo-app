@@ -1,6 +1,9 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 
+// Data Handler
+import Todo from '../../../models/Todo';
+
 const initialState = {
   value: [],
 };
@@ -9,24 +12,23 @@ export const todoSlice = createSlice({
   name: 'todo',
   initialState,
   reducers: {
-    addTodo: (state, { payload: todo }) => {
-      state.value.push(todo);
-    },
-    editTodo: (state, { payload: { id, data } }) => {
-      const index = state.value.findIndex((todo) => (todo.id === id));
+    addTodo: (state, { payload: title }) => {
+      Todo.addTodo(title);
 
-      const newTodo = {
-        ...data,
-        id,
-      };
-
-      state.value[index] = newTodo;
+      state.value = Todo.getTodoList();
     },
-    setTodoList: (state, { payload: list }) => {
-      state.value = list;
+    editTodo: (state, { payload: { id, title, completed } }) => {
+      Todo.editTodo(id, { title, completed });
+
+      state.value = Todo.getTodoList();
+    },
+    setTodoList: (state) => {
+      state.value = Todo.getTodoList();
     },
     deleteTodo: (state, { payload: id }) => {
-      state.value = state.value.filter((todo) => (todo.id !== id));
+      Todo.deleteTodo(id);
+
+      state.value = Todo.getTodoList();
     },
   },
 });
